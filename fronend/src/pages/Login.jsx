@@ -33,6 +33,10 @@ const Login = () => {
       localStorage.setItem("id", res.data.id);
       localStorage.setItem("token", res.data.token);
       setIsAuthenticated(true);
+      setLoginData({
+        email: "",
+        password: "",
+      });
     } catch (error) {
       handleError(error.response.data.message);
     }

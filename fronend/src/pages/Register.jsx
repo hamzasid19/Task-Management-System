@@ -7,10 +7,11 @@ import { UserDataContext } from "../context/UserData";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import { handleError, handleSuccess } from "../Toast/Util";
+import { useNavigate } from "react-router";
 
 const Register = () => {
   const { regData, setRegData } = useContext(UserDataContext);
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRegData((prevData) => ({
@@ -27,6 +28,15 @@ const Register = () => {
       .then((res) => {
         // console.log("User Created Successfully", res.data);
         handleSuccess("User Created Successfully");
+
+        setRegData({
+          username: "",
+          email: "",
+          password: "",
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
       })
       .catch((err) => {
         handleError(err.response.data.message);
