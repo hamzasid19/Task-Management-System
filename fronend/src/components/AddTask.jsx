@@ -47,14 +47,17 @@ const AddTask = () => {
   return (
     <>
       <div className="absolute top-20  bg-white p-4 rounded-md shadow-lg z-15 xs:w-1/2 w-full xs:left-[20%] left-0">
-        <h1 className="font-bold text-xl mb-4">Add Task</h1>
-        <form onSubmit={handleSubmit}>
+        <h1 className="font-bold xs:text-3xl text-center text-xl mb-4">
+          Add Task
+        </h1>
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <Input
             variant="text"
             data={addTask.title}
             inputName="title"
             handleChange={handleChange}
             placeholder="Title"
+            extraClasses="xs:w-full max-[800px]:w-full"
           />
           <Input
             variant="text"
@@ -62,6 +65,7 @@ const AddTask = () => {
             inputName="description"
             handleChange={handleChange}
             placeholder="Description"
+            extraClasses="xs:w-full max-[800px]:w-full"
           />
           <div className="flex gap-2">
             <Button text="Add Task" />

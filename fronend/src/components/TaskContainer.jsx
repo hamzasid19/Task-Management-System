@@ -54,14 +54,19 @@ const TaskContainer = ({ completedFilter }) => {
       {filteredTasks.map((task) => {
         return (
           <div
-            className={`w-full rounded-md  p-4 ${
+            className={`w-full rounded-md  p-4 space-y-2  ${
               task.completed ? "bg-green-100" : "bg-red-100"
             }`}
             key={task._id}
           >
-            <h1>Title: {task.title}</h1>
-            <p>Description: {task.description}</p>
-            {task.completed && <p>Completed</p>}
+            <h1 className="text-xl">
+              <span className="font-bold "> Title:</span> {task.title}
+            </h1>
+            <p className="text-xl">
+              <span className="font-bold "> Description:</span>{" "}
+              {task.description}
+            </p>
+            {task.completed && <p className="font-bold text-xl">Completed</p>}
             <div className="flex gap-3">
               <Button
                 extraClasses="w-40"
