@@ -54,6 +54,17 @@ const Input = ({
           onChange={handleChange}
           placeholder={placeholder}
         />
+      ) : variant === "checkbox" ? (
+        <input
+          className={` outline-black bg-gray-100 rounded-xs
+             ${extraClasses}`}
+          type="checkbox"
+          name={inputName}
+          id="checkbox"
+          value={data}
+          checked={data ? true : false}
+          onChange={handleChange}
+        />
       ) : null}
     </>
   );

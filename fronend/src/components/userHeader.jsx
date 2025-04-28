@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Container from "./Container";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import { NavOpenContext } from "../context/navOpen";
 import user from "../assets/user.jpg";
 import { AuthContext } from "../context/AuthContext";
 const UserHeader = () => {
-  const { setIsAuthenticated } = React.useContext(AuthContext);
+  const { setIsAuthenticated } = useContext(AuthContext);
   const { setSideBarOpen, profileDropDown, setProfileDropDown } =
-    React.useContext(NavOpenContext);
-  const navigate = useNavigate();
+    useContext(NavOpenContext);
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -187,7 +186,7 @@ const UserHeader = () => {
                 className={({ isActive }) =>
                   isActive ? "text-blue-600" : "hover:text-gray-400"
                 }
-                to="/dashscreen"
+                to="/dashboard"
               >
                 Dashboard
               </NavLink>

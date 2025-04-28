@@ -5,6 +5,10 @@ export const UserDataContext = createContext({
   setRegData: () => {},
   loginData: "",
   setLoginData: () => {},
+  userInfo: "",
+  setUserInfo: () => {},
+  editUser: "",
+  setEditUser: () => {},
 });
 
 export const UserDataProvider = ({ children }) => {
@@ -17,9 +21,27 @@ export const UserDataProvider = ({ children }) => {
     email: "",
     password: "",
   });
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    email: "",
+  });
+  const [editUser, setEditUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   return (
     <UserDataContext.Provider
-      value={{ regData, setRegData, loginData, setLoginData }}
+      value={{
+        regData,
+        setRegData,
+        loginData,
+        setLoginData,
+        userInfo,
+        setUserInfo,
+        editUser,
+        setEditUser,
+      }}
     >
       {children}
     </UserDataContext.Provider>

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Container from "./Container";
 import { NavLink } from "react-router";
 import { NavOpenContext } from "../context/navOpen";
 const Header = () => {
-  const { navOpen, setNavOpen } = React.useContext(NavOpenContext);
+  const { navOpen, setNavOpen } = useContext(NavOpenContext);
 
   const handleOpen = () => {
     if (window.innerWidth < 800) {
@@ -97,7 +97,7 @@ const Header = () => {
               className={({ isActive }) =>
                 isActive ? "text-blue-600" : "hover:text-gray-400"
               }
-              to="/"
+              to="/login"
             >
               Login
             </NavLink>
@@ -110,15 +110,6 @@ const Header = () => {
             >
               Register
             </NavLink>
-            {/* <NavLink
-              onClick={handleOpen}
-              className={({ isActive }) =>
-                isActive ? "text-blue-600" : "hover:text-gray-400"
-              }
-              to="/dashboard"
-            >
-              Dashboard
-            </NavLink> */}
           </nav>
         </div>
       </Container>

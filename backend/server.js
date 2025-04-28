@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDb } from "./Connection/Db.js";
 import AuthRoute from "./Routes/AuthRoute.js";
 import TaskRoute from "./Routes/TaskRoute.js";
+import UserRoute from "./Routes/UserRoute.js";
 import AuthTokenRoute from "./Routes/AuthTokenRoute.js";
 import cors from "cors";
 import { errorHandler, notFound } from "./Middleware/errorHandler.js";
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", AuthRoute);
+app.use("/api/user", UserRoute);
 app.use("/api", AuthTokenRoute);
 app.use("/api/v1/tasks", TaskRoute);
 

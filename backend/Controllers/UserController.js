@@ -46,4 +46,27 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 });
 
-export { registerUser, loginUser };
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await UserModel.findById(req.params.id);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  res.send({ user });
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  if (req.body.password) {
+    user.password = await bcrypt.hash(req.body.password, 10);
+    await user.save();
+  }
+  res.send({ user });
+});
+export { registerUser, loginUser, getUserById, updateUser };

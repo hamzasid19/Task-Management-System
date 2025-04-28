@@ -7,6 +7,8 @@ const TaskContext = createContext({
   setOpenTask: () => {},
   allTasks: "",
   setAllTasks: () => {},
+  editTask: "",
+  setEditTask: () => {},
 });
 
 const TaskProvider = ({ children }) => {
@@ -17,6 +19,11 @@ const TaskProvider = ({ children }) => {
   });
   const [openTask, setOpenTask] = useState(false);
   const [allTasks, setAllTasks] = useState([]);
+  const [editTask, setEditTask] = useState({
+    title: "",
+    description: "",
+    completed: null,
+  });
   return (
     <TaskContext.Provider
       value={{
@@ -26,6 +33,8 @@ const TaskProvider = ({ children }) => {
         setOpenTask,
         allTasks,
         setAllTasks,
+        editTask,
+        setEditTask,
       }}
     >
       {children}

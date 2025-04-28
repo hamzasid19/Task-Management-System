@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router";
 import { NavOpenContext } from "../context/navOpen";
 const SideBar = () => {
-  const { sideBarOpen } = React.useContext(NavOpenContext);
+  const { sideBarOpen } = useContext(NavOpenContext);
   return (
     <div
       className={`absolute top-17 bottom-0 left-0 shadow text-2xl bg-white z-9 flex flex-col gap-5 pt-20 overflow-hidden transition-all duration-300

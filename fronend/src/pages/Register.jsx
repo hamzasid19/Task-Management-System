@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Container from "../components/Container";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -54,24 +54,29 @@ const Register = () => {
             variant="username"
             data={regData}
             handleChange={handleChange}
+            placeholder="Enter your username"
           />
 
-          <label className="font-bold text-xl xs:text-2xl xs:mt-8">Email</label>
+          <label className="font-bold text-xl xs:text-2xl">Email</label>
 
-          <Input variant="email" data={regData} handleChange={handleChange} />
+          <Input
+            variant="email"
+            data={regData}
+            handleChange={handleChange}
+            placeholder="Enter your email"
+          />
 
-          <label className="font-bold text-xl xs:text-2xl xs:mt-8">
-            Password
-          </label>
+          <label className="font-bold text-xl xs:text-2xl ">Password</label>
 
           <Input
             variant="password"
             data={regData}
             handleChange={handleChange}
+            placeholder="Enter your password"
           />
           <Button
             text="Register"
-            extraClasses="xs:mt-8 xs:w-3/4 max-[600px]:w-full max-[800px]:w-3/4"
+            extraClasses="xs:mt-6 xs:w-3/4 max-[600px]:w-full max-[800px]:w-3/4"
           />
         </form>
       </div>
