@@ -1,19 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Lottie from "lottie-react";
 import task from "../assets/task.json";
+import AddTask from "../components/AddTask";
+import { TaskContext } from "../context/TaskContext";
+import TaskContainer from "../components/TaskContainer";
 
 const Dashboard = () => {
-  /*************  ✨ Windsurf Command 🌟  *************/
-  const [priorityDrop, setPriorityDrop] = React.useState(false);
-  const [completeDrop, setCompleteDrop] = React.useState(false);
-  const [selected, setSelected] = React.useState(null);
-  const [completed, setCompleted] = React.useState(null);
-  const [products, setProducts] = React.useState([]);
+  const { openTask, setOpenTask, allTasks } = useContext(TaskContext);
+  const [priorityDrop, setPriorityDrop] = useState(false);
+  const [completeDrop, setCompleteDrop] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [completed, setCompleted] = useState(null);
+  const [products, setProducts] = useState([]);
   const handleToggle = () => setPriorityDrop((prev) => !prev);
   const handleToggleq = () => setCompleteDrop((prev) => !prev);
 
+  const handleOpen = () => {
+    setOpenTask((open) => !open);
+  };
   const handleSelect = (value) => {
     setSelected(value);
   };
@@ -23,7 +29,7 @@ const Dashboard = () => {
 
   const fetchProducts = async () => {
     try {
-      const url = "https://deploy-mern-app-1-api.vercel.app/products";
+      const url = "http://localhost:8000/api/products";
       const headers = {
         headers: {
           Authorization: localStorage.getItem("token"),
@@ -44,8 +50,8 @@ const Dashboard = () => {
     <>
       <Container extraClasses=" px-4">
         <h1 className="font-bold text-black text-2xl">Task Management</h1>
-        <h1>{products.map((product) => product.name)}</h1>
-        <div className="flex gap-2 items-center flex-wrap pt-2">
+        <h1>{products && products.map((product) => product.name)}</h1>
+        <div className="flex gap-2 items-center flex-wrap pt-2 relative">
           <div className="">
             <p className="text-gray-600 font-bold text-xl">Priority</p>
             <button
@@ -111,17 +117,23 @@ const Dashboard = () => {
           </div>
           <Button
             text="Add Task"
-            handleClick={() => {}}
+            handleClick={handleOpen}
             extraClasses={"xs:w-1/6 self-end w-40 "}
           />
+          {openTask && <AddTask />}
         </div>
       </Container>
       <Container extraClasses=" px-4">
-        <div className="mt-6 shadow-lg w-full min-h-[60vh]">
-          <Lottie
-            className="w-1/2 h-3/4 xs:h-1/2 mx-auto mt-20 xs:mt-0"
-            animationData={task}
-          />
+        <div className="mt-6 shadow-lg w-full min-h-[60vh] max-h-[60vh] overflow-auto">
+          {allTasks.length === 0 && (
+            <Lottie
+              className="w-1/2 h-3/4 xs:h-1/2 mx-auto mt-20 xs:mt-0"
+              animationData={task}
+            />
+          )}
+          <div className="w-full flex flex-col gap-3">
+            <TaskContainer />
+          </div>
         </div>
       </Container>
     </>

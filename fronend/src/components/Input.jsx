@@ -1,6 +1,13 @@
 import React from "react";
 
-const Input = ({ variant, data, handleChange, extraClasses }) => {
+const Input = ({
+  variant,
+  data,
+  handleChange,
+  extraClasses,
+  inputName,
+  placeholder,
+}) => {
   return (
     <>
       {variant === "email" ? (
@@ -12,6 +19,7 @@ const Input = ({ variant, data, handleChange, extraClasses }) => {
           id="email"
           value={data.email}
           onChange={handleChange}
+          placeholder={placeholder}
         />
       ) : variant === "password" ? (
         <input
@@ -22,6 +30,7 @@ const Input = ({ variant, data, handleChange, extraClasses }) => {
           id="password"
           value={data.password}
           onChange={handleChange}
+          placeholder={placeholder}
         />
       ) : variant === "username" ? (
         <input
@@ -32,6 +41,18 @@ const Input = ({ variant, data, handleChange, extraClasses }) => {
           id="username"
           value={data.username}
           onChange={handleChange}
+          placeholder={placeholder}
+        />
+      ) : variant === "text" ? (
+        <input
+          className={`xs:w-3/4 max-[600px]:w-full max-[800px]:w-3/4 p-2 text-xl outline-black bg-gray-100 rounded-xs
+             ${extraClasses}`}
+          type="text"
+          name={inputName}
+          id="text"
+          value={data}
+          onChange={handleChange}
+          placeholder={placeholder}
         />
       ) : null}
     </>

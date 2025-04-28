@@ -8,8 +8,10 @@ import axios from "axios";
 import { handleError, handleSuccess } from "../Toast/Util";
 import { useNavigate } from "react-router";
 import { ToastContainer } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
+  const { setIsAuthenticated } = useContext(AuthContext);
   const { loginData, setLoginData } = useContext(UserDataContext);
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -20,24 +22,25 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/auth/login", loginData)
-      .then((res) => {
-        // console.log("User Created Successfully", res.data);
-        handleSuccess("Logged In Successfully");
-        navigate("/dashboard");
-        localStorage.setItem("username", res.data.name);
-        localStorage.setItem("email", res.data.email);
-        localStorage.setItem("id", res.data.id);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("success", res.data.success);
-      })
-      .catch((err) => {
-        handleError(err.response.data.message);
-      });
-    // console.log(loginData);
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/auth/login",
+        loginData
+      );
+
+      // console.log("User Created Successfully", res.data);
+      handleSuccess("Logged In Successfully");
+      localStorage.setItem("username", res.data.name);
+      localStorage.setItem("id", res.data.id);
+      localStorage.setItem("token", res.data.token);
+      setIsAuthenticated(true);
+
+      // console.log(loginData);
+    } catch (error) {
+      handleError(error.response.data.message);
+    }
   };
 
   return (

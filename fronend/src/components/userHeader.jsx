@@ -1,12 +1,22 @@
 import React, { useEffect } from "react";
 import Container from "./Container";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { NavOpenContext } from "../context/navOpen";
 import user from "../assets/user.jpg";
+import { AuthContext } from "../context/AuthContext";
 const UserHeader = () => {
+  const { setIsAuthenticated } = React.useContext(AuthContext);
   const { setSideBarOpen, profileDropDown, setProfileDropDown } =
     React.useContext(NavOpenContext);
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("id");
 
+    setIsAuthenticated(false);
+    setProfileDropDown((open) => !open);
+  };
   const handleDropDown = () => {
     setProfileDropDown((open) => !open);
   };
@@ -182,7 +192,7 @@ const UserHeader = () => {
                 Dashboard
               </NavLink>
               <NavLink
-                onClick={handleDropDown}
+                onClick={logoutHandler}
                 className={({ isActive }) =>
                   isActive ? "text-blue-600" : "hover:text-gray-400 "
                 }

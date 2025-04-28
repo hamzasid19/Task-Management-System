@@ -3,18 +3,17 @@ import jwt from "jsonwebtoken";
 const ensureAuthenticated = (req, res, next) => {
   const auth = req.headers["authorization"];
   if (!auth) {
-    return res
-      .status(403)
-      .json({ message: "Unauthorized, JWT token is require" });
+    res.status(403);
+    throw new Error("Unauthorized, JWT token is require");
   }
   try {
-    const decoded = jwt.verify(auth, process.env.JWT_SECRET);
+    const decoded = jwt.verify(auth, process.env.JWT_KEY);
     req.user = decoded;
     next();
-  } catch (err) {
-    return res
-      .status(403)
-      .json({ message: "Unauthorized, JWT token wrong or expired" });
+  } catch {
+    res.status(403);
+
+    throw new Error("Unauthorized, JWT token is wrong or expired");
   }
 };
 

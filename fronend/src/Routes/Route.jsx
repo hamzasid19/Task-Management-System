@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import UserLayout from "../Layout/userLayout";
 import axios from "axios";
 import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
 const Route = () => {
   return useRoutes([
     {
@@ -14,23 +15,40 @@ const Route = () => {
       element: <Layout />,
       children: [
         {
-          path: "/",
-          element: <Login />,
+          index: true,
+          element: (
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          ),
+        },
+        {
+          path: "/login",
+          element: (
+            <PublicRoute>
+              {" "}
+              <Login />{" "}
+            </PublicRoute>
+          ),
         },
 
         {
           path: "/register",
-          element: <Register />,
+          element: (
+            <PublicRoute>
+              {" "}
+              <Register />
+            </PublicRoute>
+          ),
         },
       ],
     },
     {
       path: "/dashboard",
       element: (
-        // <ProtectedRoute>
-
-        <UserLayout />
-        // </ProtectedRoute>
+        <ProtectedRoute>
+          <UserLayout />
+        </ProtectedRoute>
       ),
       children: [
         {

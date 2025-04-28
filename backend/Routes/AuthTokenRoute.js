@@ -2,8 +2,7 @@ import ensureAuthenticated from "../Middleware/authToken.js";
 import express from "express";
 const router = express.Router();
 
-router.get("/api", ensureAuthenticated, (req, res) => {
-  console.log("---- logged in user detail ---", req.user);
+router.get("/products", ensureAuthenticated, (req, res) => {
   res.status(200).json([
     {
       name: "mobile",
